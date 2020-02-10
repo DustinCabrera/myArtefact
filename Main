@@ -1,0 +1,450 @@
+//Dustin-Alexander Cabrera
+//st20099989
+//Cardiff Metropolitan Univerisity
+
+package main;
+
+import java.util.Scanner;
+public class Main {
+
+	//public variables for use through of class such as Scanners and Array lists
+	public static Scanner in = new Scanner(System.in).useDelimiter("\\n");
+	public static Scanner inint = new Scanner(System.in);
+	
+		public static void main(String[] args) {
+		menu();	}
+public static void menu() {
+
+int menu = 0;
+
+do{
+	//This prints a text on the screen to show instructions to the user
+	System.out.println("Mobile Phone Security Advice and Help");
+	System.out.println("The following questions are Yes and No Questions");
+	System.out.println("Press 1 for YES");
+	System.out.println("Press 2 for NO");
+	System.out.println("Each question will help you decide what the reccomended actions are needed to better secure your device");
+	System.out.println("");
+	System.out.println("If you are ready press the number indicating YES");
+	
+	//This records the users choice
+	menu = inint.nextInt(); //"inint" is the input name indicating that only integers should only be put as an input
+	
+	switch(menu){ //a switch statement is used in order to help navigate what the user wants to enter
+	
+	case 1:
+		//calls the method within this class that directs to the first question
+		questionOne();
+		break;
+	
+	}// indicates end of switch statement
+	
+} while (menu != 0); //end of loop
+
+}// end of main method concerning main directory
+public static void questionOne() {
+
+	int menu = 0;
+
+	do{
+		//prints the first question
+		System.out.println("Do you use VPN's (Virtual Private Networks) prior to connecting to public wifi? ");
+
+		
+		menu = inint.nextInt(); //Only integers should be input
+		
+		switch(menu){// Since menu = inint.nextInt(); the user should only put integers
+
+		case 1:
+			lEyes();
+			break;// Each break allows the switch to stop the user from moving to the next case after current case is completed
+		
+		case 2:
+			lEno();
+			break;
+
+		}
+		
+	} while (menu != 0); //end of loop
+	
+}
+public static void lEyes() {
+
+	int menu = 0;
+
+	do{
+		System.out.println("Are you able to locate your device from another device? ");
+
+		
+		menu = inint.nextInt(); 
+		switch(menu){
+		case 1:
+			lEyesrEyes();
+			break;
+		case 2:
+			lEyesrEno();
+			break;
+
+		}
+		
+	} while (menu != 0);
+}
+public static void lEno() {
+
+	int menu = 0;
+
+	do{
+		System.out.println("Are you able to locate your device from another device? ");
+
+		
+		menu = inint.nextInt(); 
+		switch(menu){
+		case 1:
+			lEnorEyes();
+			break;
+		case 2:
+			lEnorEno();
+			break;
+
+		}
+		
+	} while (menu != 0);
+}
+public static void lEyesrEno() {
+
+	int menu = 0;
+
+	do{
+		System.out.println("Do you use an antivirus on your device?");
+
+		
+		menu = inint.nextInt(); 
+		switch(menu){
+		case 1:
+			lEyesrEnolIyes();
+			break;
+		case 2:
+			lEyesrEnolIno();
+			break;
+
+		}
+		
+	} while (menu != 0);
+}
+public static void lEnorEyes() {
+
+	int menu = 0;
+
+	do{
+		System.out.println("Do you use an antivirus on your device?");
+
+		
+		menu = inint.nextInt(); 
+		switch(menu){
+		case 1:
+			lEnorEyeslIyes();
+			break;
+		case 2:
+			lEnorEyeslIno();
+			break;
+
+		}
+		
+	} while (menu != 0);
+}
+public static void lEyesrEyes() {
+
+	int menu = 0;
+
+	do{
+		System.out.println("Do you use an antivirus on your device?");
+
+		
+		menu = inint.nextInt(); 
+		switch(menu){
+		case 1:
+			lEyesrEyeslIyes();
+			break;
+		case 2:
+			lEyesrEyeslIno();
+			break;
+
+		}
+		
+	} while (menu != 0);
+}
+public static void lEnorEno() {
+
+	int menu = 0;
+
+	do{
+		System.out.println("Do you use an antivirus on your device? ");
+
+		
+		menu = inint.nextInt(); 
+		switch(menu){
+		case 1:
+			lEnorEnolIyes();
+			break;
+		case 2:
+			lEnorEnolIno();
+			break;
+
+		}
+		
+	} while (menu != 0);
+}
+public static void lEnorEyeslIno() {
+
+	int menu = 0;
+
+	do{
+		System.out.println("Do you download from third party app stores?");
+
+		
+		menu = inint.nextInt(); 
+		switch(menu){
+		case 1:
+			IIlE();
+			break;
+		case 2:
+			IIrE();
+			break;
+
+		}
+		
+	} while (menu != 0);
+}
+
+public static void lEyesrEnolIno() {
+
+	int menu = 0;
+
+	do{
+		System.out.println("Do you download from third party app stores?");
+
+		
+		menu = inint.nextInt(); 
+		switch(menu){
+		case 1:
+			IIrE();
+			break;
+		case 2:
+			lIrE();
+			break;
+
+		}
+		
+	} while (menu != 0);
+}
+public static void lEnorEnolIyes() {
+
+	int menu = 0;
+
+	do{
+		System.out.println("Do you download from third party app stores?");
+
+		
+		menu = inint.nextInt(); 
+		switch(menu){
+		case 1:
+			EErI();
+			break;
+		case 2:
+			EE();
+			break;
+
+		}
+		
+	} while (menu != 0);
+}
+public static void lEyesrEnolIyes() {
+
+	int menu = 0;
+
+	do{
+		System.out.println("Do you download from third party app stores?");
+
+		
+		menu = inint.nextInt(); 
+		switch(menu){
+		case 1:
+			lIlE();
+			break;
+		case 2:
+			rE();
+			break;
+
+		}
+		
+	} while (menu != 0);
+}
+public static void lEnorEyeslIyes() {
+
+	int menu = 0;
+
+	do{
+		System.out.println("Do you download from third party app stores?");
+
+		
+		menu = inint.nextInt(); 
+		switch(menu){
+		case 1:
+		EErI();
+			break;
+		case 2:
+			lE();
+			break;
+
+		}
+		
+	} while (menu != 0);
+}
+public static void lEyesrEyeslIno() {
+
+	int menu = 0;
+
+	do{
+		System.out.println("Do you download from third party app stores?");
+
+		
+		menu = inint.nextInt(); 
+		switch(menu){
+		case 1:
+			II();
+			break;
+		case 2:
+			lI();
+			break;
+
+		}
+		
+	} while (menu != 0);
+}
+public static void lEyesrEyeslIyes() {
+	int menu = 0;
+
+	do{
+
+		System.out.println("Do you download from third party app stores? ");
+
+		menu = inint.nextInt();
+		
+		switch(menu){
+		case 1:
+			rI();
+			break;
+		
+		case 2:
+			none();
+			break;
+
+		}
+		
+	} while (menu != 0); 
+	
+}
+public static void lEnorEnolIno() {
+	int menu = 0;
+
+	do{
+
+		System.out.println("Do you download from third party app stores? ");
+
+		menu = inint.nextInt();
+		
+		switch(menu){
+		case 1:
+			EEII();
+			break;
+		
+		case 2:
+			EElI();
+			break;
+
+		}
+		
+	} while (menu != 0); 
+	
+}
+public static void lI() {//done
+
+	System.out.println("1 Internal Risk ");
+	System.out.println("Virus risk - Use Antiviruses provided by the system or download one in your offical application store");
+}
+public static void rI() {//done
+		System.out.println("1 Internal Risk ");
+		System.out.println("Risk of Malware from Third Party Apps - Use Official app stores ");
+}
+public static void II() {//done
+	System.out.println("Full Internal Risks ");
+	System.out.println("Virus risk - Use Antiviruses provided by the system or download one in your offical application store");
+	System.out.println("Risk of Malware from Third Party Apps - Use Official app stores ");
+}
+public static void lE() {//done
+	System.out.println("1 External Risk ");
+	System.out.println("Risk of Public Wifi attacks - Use Virtual Private Networks ");
+}
+
+public static void rE() {//done
+		System.out.println("1 External Risk ");
+		System.out.println("Risk of Theft and loss - Store phone in secure places and Use “Find your phone” applications ");
+}		
+public static void EE() {//done
+
+	System.out.println("Full External Risks ");
+	System.out.println("Risk of Public Wifi attacks - Use Virtual Private Networks ");
+	System.out.println("Store phone in secure places and Use “Find your phone” applications ");
+}
+public static void lIrE() {//done
+	System.out.println("Mixed Interal and External Risks ");
+	System.out.println("Virus risk - Use Antiviruses provided by the system or download one in your offical application store");
+	System.out.println("Risk of Theft and loss - Store phone in secure places and Use “Find your phone” applications");
+}
+public static void IIrE() {//done
+	System.out.println("Mostly Internal Risks ");
+	System.out.println("Virus risk - Use Antiviruses provided by the your device system or download one in your offical application store");
+	System.out.println("Risk of Malware from Third Party Apps - Use Official app stores ");
+	System.out.println("Store phone in secure places and Use “Find your phone” applications ");
+}
+public static void IIlE() {//done
+	System.out.println("Mostly Internal Risks ");
+	System.out.println("Virus risk - Use Antiviruses provided by the your device system or download one in your offical application store");
+	System.out.println("Risk of Malware from Third Party Apps - Use Official app stores ");
+	System.out.println("Risk of Public Wifi attacks - Use Virtual Private Networks ");
+}
+
+public static void lIlE() {//done
+	System.out.println("Mixed Internal and External Risks A ");
+	System.out.println("Virus risk - Use Antiviruses provided by the your device system or download one in your offical application store");
+	System.out.println("Risk of Public Wifi attacks - Use Virtual Private Networks ");
+}
+public static void EErI() {//done
+	System.out.println("Mostly External Risks ");
+	System.out.println("Risk of Public Wifi attacks - Use Virtual Private Networks ");
+	System.out.println("Store phone in secure places and Use “Find your phone” applications ");
+	System.out.println("Risk of Malware from Third Party Apps - Use Official app stores ");
+}
+public static void EElI() {//done
+	System.out.println("Mostly External Risks ");
+	System.out.println("Risk of Public Wifi attacks - Use Virtual Private Networks ");
+	System.out.println("Store phone in secure places and Use “Find your phone” applications ");
+	System.out.println("Virus risk - Use Antiviruses provided by the system or download one in your offical application store");
+}
+public static void EEII() {//done
+	System.out.println("Full External and Internal Risks ");
+	System.out.println("Risk of Public Wifi attacks - Use Virtual Private Networks ");
+	System.out.println("Virus risk - Use Antiviruses provided by the system or download one in your offical application store");
+	System.out.println("Risk of Malware from Third Party Apps - Use Official app stores ");
+	System.out.println("Store phone in secure places and Use “Find your phone” applications ");
+}
+public static void none() {//done
+		System.out.println("Safe from from risks. ");
+		System.out.println("Antiviruses is used to protect device.");
+		System.out.println("Uses Official app stores. ");
+		System.out.println("Your device is kept secure and backed up in case of loss or theft.");
+		System.out.println("You use Virtual Private Networks. ");
+
+}
+		}
+	
