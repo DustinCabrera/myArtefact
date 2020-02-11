@@ -1,0 +1,216 @@
+//Julia set
+
+//Extensions
+#include <iostream>
+#include <random>
+#include <chrono>
+#include <vector>
+#include <cmath>
+#include <tbb/tbb.h>
+#include <FreeImage/FreeImagePlus.h>
+#include <complex>
+
+//Namespace
+using namespace std;
+using namespace std::chrono;
+using namespace tbb;
+
+//Class created to include colours
+class RGBAPixel {
+
+public:
+	byte B, G, R, A;
+
+	RGBAPixel() {}
+
+	RGBAPixel(byte B, byte G, byte R, byte A) {
+
+		//constructors
+		// calls the byte then = R is the RBGpixel		
+		this->B = B;
+		this->R = R;
+		this->G = G;
+		this->A = A;
+
+	}
+};
+
+//function to create a png file
+void sequentialjulia_set(void) {
+
+	//Output image array
+	int width = 1000; //Width of output image
+	int height = 1000;// Height of output image
+	int MAX_ITERATIONS = 200;
+
+	//creates a new image object
+	fipImage outputImage;
+	outputImage = fipImage(FIT_BITMAP, width, height, 32);
+	RGBAPixel *outputBuffer = (RGBAPixel*)outputImage.accessPixels();
+	RGBAPixel pixelValue;
+
+	//setup for the real and imaginary numbers for c and z
+	complex <double> C;
+	complex <double> Z;
+	// for distribution calculation
+	long double L;
+
+	//julia set pattern taken from wikipedia
+	C.real(-0.8);
+	C.imag(0.156);
+
+	cout << "Processing...\n";
+
+	//Sequential version
+	for (int y = 0; y < height; y++) {
+
+		for (int x = 0; x < width; x++) {
+			//accesses the real part of the complex number 
+			Z.real(1.5f * (x - width / 2) / (0.5f * width));
+
+			//accesses the imaginary part of the complex number
+			Z.imag((y - height / 2) / (0.5f * height));
+
+			//equation online for complex number C++, edited to fit in line with code
+			//https://lodev.org/cgtutor/juliamandelbrot.html
+
+			//Pseudocode implemented
+			int k = 0;
+			for (k = 0; k < MAX_ITERATIONS; k++) {
+
+				Z = (Z * Z) + C;
+				L = sqrt((Z.imag() * Z.imag()) + (Z.real() * Z.real()));
+
+				if (L > 2.0) {
+					break;
+				}
+			}
+			//else creates colour for Julia set backround
+			int index = y * width + x;
+			if (k < MAX_ITERATIONS) {
+				pixelValue.B = BYTE(double(y) / double(height) * 100);//value for Blue
+				pixelValue.G = 0; //Green
+				pixelValue.R = 0; //Red
+				pixelValue.A = 255;//Alpha
+			}
+			//else creates colour for Julia set pattern
+			else
+			{
+				pixelValue.B = 0;//value for Blue
+				pixelValue.G = 0; //Green
+				pixelValue.R = BYTE(double(y) / double(height) * 100);//Red
+				pixelValue.A = 255;//Alpha
+			}
+			outputBuffer[index] = pixelValue;
+		}
+	}
+
+	std::cout << "Saving image...\n";
+
+	outputImage.convertToType(FREE_IMAGE_TYPE::FIT_BITMAP);
+	outputImage.convertTo32Bits();
+	outputImage.save("juliaset.png");//saves image as "juliaset.png"
+
+	std::cout << "...done\n\n";
+
+}
+
+//Julia set using Threading buildig blocks and Parallel for
+void TBBjulia_set(void) {
+
+	int width = 1000; //Width of output image
+	int height = 1000;// Height of output image
+	int MAX_ITERATIONS = 200;
+
+	cout << "Processing...\n";
+
+	fipImage outputImage;
+	outputImage = fipImage(FIT_BITMAP, width, height, 32);
+	RGBAPixel *outputBuffer = (RGBAPixel*)outputImage.accessPixels();
+	RGBAPixel pixelValue;
+
+	//TBB version
+	parallel_for(
+		blocked_range2d<UINT, UINT>(0, height, 0, width),
+
+		[=](const blocked_range2d<UINT, UINT>& r) {
+
+		auto y1 = r.rows().begin();
+		auto y2 = r.rows().end();
+		auto x1 = r.cols().begin();
+		auto x2 = r.cols().end();
+
+		for (auto y = r.rows().begin(); y < r.rows().end(); ++y) {
+
+			for (auto x = r.cols().begin(); x < r.cols().end(); ++x) {
+				//setup for the real and imaginary numbers for c and z
+				complex <double> C;
+				complex <double> Z;
+
+				// for distribution calculation
+				long double L;
+
+				//julia set pattern taken from wikipedia
+				C.real(-0.8);
+				C.imag(0.156);
+				//accesses the real part of the complex number 
+				Z.real(1.5f * (x - width / 2) / (0.5f * width));
+
+				//accesses the imaginary part of the complex number
+				Z.imag((y - height / 2) / (0.5f * height));
+
+				//Pseudocode implemented
+				int k = 0;
+				for (k = 0; k < MAX_ITERATIONS; k++) {
+
+					Z = (Z * Z) + C;
+					//complex operator for length
+					L = sqrt((Z.imag() * Z.imag()) + (Z.real() * Z.real()));
+
+					if (L > 2.0) {
+						break;
+					}
+				}
+
+
+//creates a new image object
+int index = (y * width) + x;
+	RGBAPixel pixelValue = outputBuffer[index];// without this the pixelvalues do not work.
+
+		if (k < MAX_ITERATIONS) {
+
+			pixelValue.B = 0;//value for Blue
+			pixelValue.G = 0; //Green
+			pixelValue.R = 50; //Red
+			pixelValue.A = 255;
+				}
+				//else creates colour for Julia set pattern
+				else
+				{
+					pixelValue.B = 0;//value for Blue
+					pixelValue.G = BYTE(double(y) / double(height) * 100); // //Green
+					pixelValue.R = 0;//Red
+					pixelValue.A = 255;//Alpha
+				}
+				outputBuffer[index] = pixelValue;
+			}
+		}
+	});
+	std::cout << "Saving image...\n";
+
+	outputImage.convertToType(FREE_IMAGE_TYPE::FIT_BITMAP);
+	outputImage.convertTo32Bits();
+	outputImage.save("tbbjuliaset.png");//saves image as "tbbjuliaset.png"
+
+	std::cout << "...done\n\n";
+
+}
+
+//main
+int main(void) {
+
+	//calls "void method" depending on what has not been commented out.
+	sequentialjulia_set();
+	//TBBjulia_set();
+	return 0;
+}
